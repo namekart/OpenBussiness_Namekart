@@ -1,0 +1,341 @@
+Build a modern SaaS landing page similar to the provided reference images (1–5 for layout/design, 6–7 for header behavior).
+
+The app must be built using:
+
+Next.js (App Router)
+
+JavaScript (NOT TypeScript)
+
+Tailwind CSS
+
+shadcn/ui
+
+Framer Motion
+
+React Query (@tanstack/react-query)
+
+MongoDB
+
+Dark & Light mode support
+
+Fully responsive
+
+Optimized & production-ready
+
+🏗️ Tech Stack Requirements
+Frontend
+
+Next.js (App Router)
+
+JavaScript only
+
+Tailwind CSS
+
+shadcn/ui components
+
+Framer Motion (for animations)
+
+React Query for API calls & caching
+
+Lucide React for icons
+
+Clean folder structure
+
+Component-based architecture
+
+SEO optimized
+
+Backend
+
+Next.js API Routes (App Router)
+
+MongoDB (Mongoose)
+
+Proper MVC-style structure
+
+Input validation
+
+Error handling middleware
+
+Environment variables for secrets
+
+Secure API design
+
+🎨 Design Requirements
+🎯 Theme
+
+Must support Dark & Light mode
+
+Use next-themes
+
+Smooth theme transition
+
+Persist theme in localStorage
+
+🧭 Header Behavior (Very Important)
+
+Based on Image 6 & 7:
+
+Initial State (Top of Page)
+
+Transparent background
+
+White text (in dark mode)
+
+Absolute positioning
+
+Over hero section
+
+Large spacing
+
+On Scroll
+
+Becomes fixed
+
+Background changes (blur + solid background)
+
+Add shadow
+
+Padding reduces
+
+Smooth transition
+
+Logo size slightly reduces
+
+Use Framer Motion for animation
+
+Behavior:
+
+onScroll → setScrolled(true)
+
+Use:
+
+useEffect
+
+window.scrollY
+
+Debounce optimization
+
+🏠 Landing Page Sections (Based on Images 1–5)
+
+Hero Section
+
+Headline
+
+Subheading
+
+CTA buttons
+
+Animated gradient background
+
+Motion animations
+
+Features Section
+
+Grid layout
+
+Icon + title + description
+
+Hover animations
+
+About / Product Section
+
+Left text, right image
+
+Animated on scroll
+
+Testimonials
+
+Cards
+
+Soft glassmorphism effect
+
+CTA Section
+
+Big bold statement
+
+CTA button
+
+Footer
+
+Social icons
+
+Links
+
+Copyright
+
+🔐 Authentication System
+Login API
+
+POST /api/auth/login
+
+JWT based authentication
+
+Store token in httpOnly cookie
+
+Password hashed with bcrypt
+
+Inquiry Form
+
+POST /api/inquiry
+
+Store in MongoDB
+
+Validate:
+
+name
+
+email
+
+message
+
+⚡ React Query Integration
+
+Use:
+
+useMutation for login
+useMutation for inquiry form
+
+Features:
+
+Loading state
+
+Error handling
+
+Success toast
+
+Automatic cache invalidation
+
+Optimistic updates where needed
+
+🗄️ MongoDB Structure
+User Model
+name
+email
+password
+createdAt
+Inquiry Model
+name
+email
+message
+createdAt
+🚀 Performance Optimization Requirements
+
+Use Next.js Image component
+
+Use dynamic imports where needed
+
+Lazy load below-fold sections
+
+Use React.memo where useful
+
+Use proper keys in lists
+
+Avoid unnecessary re-renders
+
+Use Server Components where possible
+
+Only client components where needed
+
+🧠 Animation Requirements
+
+Use Framer Motion for:
+
+Hero text entrance
+
+Header transition
+
+Section fade-in on scroll
+
+Button hover scale
+
+Card hover effects
+
+📁 Folder Structure (Clean Architecture)
+app/
+  layout.js
+  page.js
+  api/
+    auth/
+    inquiry/
+components/
+  header/
+  hero/
+  features/
+  footer/
+lib/
+  mongodb.js
+  models/
+hooks/
+  useScroll.js
+🎯 Best Practices Required
+
+Clean reusable components
+
+No inline styles
+
+No unnecessary state
+
+Proper separation of concerns
+
+Environment variables for secrets
+
+Use async/await properly
+
+Proper error boundaries
+
+Accessible buttons (aria labels)
+
+Semantic HTML
+
+Lighthouse score 90+
+
+🎨 Visual Style
+
+Modern SaaS
+
+Clean spacing
+
+Soft shadows
+
+Rounded corners (2xl)
+
+Subtle gradient accents
+
+Glassmorphism in header (on scroll)
+
+📱 Responsive
+
+Must work perfectly on:
+
+Mobile
+
+Tablet
+
+Desktop
+
+🛡️ Security
+
+Sanitize inputs
+
+Rate limit login
+
+Secure headers
+
+Protect API routes
+
+🔥 Deliverables
+
+Complete Next.js project
+
+Fully working backend
+
+MongoDB connection
+
+React Query integrated
+
+Dark/Light mode working
+
+Animated sticky header
+
+Clean optimized code
