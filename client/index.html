@@ -1,7 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 
 <head>
+  <script>
+    (function () {
+      const storageKey = "openbusiness-theme-v2";
+      const defaultTheme = "dark";
+      const stored = localStorage.getItem(storageKey);
+      const theme = stored === "dark" || stored === "light" || stored === "system" ? stored : defaultTheme;
+      const resolved = theme === "system"
+        ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
+        : theme;
+      document.documentElement.classList.add(resolved);
+    })();
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
   <link rel="icon" href="data:image/x-icon;base64,AA" />

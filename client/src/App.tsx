@@ -18,7 +18,7 @@ function Router() {
 
 function App() {
   return (
-    <ThemeProvider defaultTheme="light" storageKey="openbusiness-theme">
+    <ThemeProvider defaultTheme="dark" storageKey="openbusiness-theme-v2">
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
           <Router />
