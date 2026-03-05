@@ -1,5 +1,4 @@
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
+import { AppShell } from "@/components/layout/AppShell";
 import { FeaturePageTemplate } from "@/components/feature/FeaturePageTemplate";
 
 const content = {
@@ -86,10 +85,8 @@ const content = {
 
 export default function ERPPage() {
   return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col">
-      <Header />
+    <AppShell title="ERP" subtitle="Feature workspace">
       <FeaturePageTemplate content={content} />
-      <Footer />
-    </div>
+    </AppShell>
   );
 }

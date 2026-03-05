@@ -9,6 +9,7 @@ import Home from "@/pages/Home";
 import CRMPage from "@/pages/CRMPage";
 import ERPPage from "@/pages/ERPPage";
 import AIVoicePage from "@/pages/AIVoicePage";
+import SettingsPage from "@/pages/SettingsPage";
 
 function Router() {
   return (
@@ -17,6 +18,7 @@ function Router() {
       <Route path="/crm" component={CRMPage} />
       <Route path="/erp" component={ERPPage} />
       <Route path="/ai-voice" component={AIVoicePage} />
+      <Route path="/settings" component={SettingsPage} />
       <Route component={NotFound} />
     </Switch>
   );

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -6,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useLogin, loginSchema, type LoginRequestType } from "@/hooks/use-api";
 import { Loader2, Mail, Lock } from "lucide-react";
+import { useLocation } from "wouter";
 
 interface LoginModalProps {
   open: boolean;
@@ -14,17 +16,24 @@ interface LoginModalProps {
 
 export function LoginModal({ open, onOpenChange }: LoginModalProps) {
   const loginMutation = useLogin();
+  const [, setLocation] = useLocation();
+
+  // TanStack Query v5: per-mutation callbacks in mutate() are unreliable.
+  // Watch isSuccess via useEffect for guaranteed redirect after login.
+  useEffect(() => {
+    if (loginMutation.isSuccess) {
+      onOpenChange(false);
+      setLocation("/crm");
+      loginMutation.reset();
+    }
+  }, [loginMutation.isSuccess]); // eslint-disable-line react-hooks/exhaustive-deps
   
   const { register, handleSubmit, formState: { errors } } = useForm<LoginRequestType>({
     resolver: zodResolver(loginSchema),
   });
 
   const onSubmit = (data: LoginRequestType) => {
-    loginMutation.mutate(data, {
-      onSuccess: () => {
-        onOpenChange(false);
-      }
-    });
+    loginMutation.mutate(data);
   };
 
   return (
