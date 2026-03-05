@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>OpenBusiness.ai CRM Feature Page</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;family=Outfit:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#745bf1",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#131022",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"],
+                        "outfit": ["Outfit", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "3xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .grid-bg {
+            background-image: radial-gradient(circle at 2px 2px, rgba(116, 91, 241, 0.05) 1px, transparent 0);
+            background-size: 40px 40px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 grid-bg">
+<div class="relative flex flex-col min-h-screen w-full overflow-x-hidden">
+<!-- Top Navigation -->
+<header class="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-primary/20 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md px-6 md:px-20 py-4">
+<div class="max-w-7xl mx-auto flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="bg-primary p-1.5 rounded-lg">
+<span class="material-symbols-outlined text-white text-xl">diamond</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-xl font-outfit font-bold tracking-tight">OpenBusiness.ai</h2>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-medium" href="#">Product</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-medium" href="#">Features</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-medium" href="#">Pricing</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-medium" href="#">About</a>
+</nav>
+<div class="flex items-center gap-3">
+<button class="hidden sm:block text-slate-900 dark:text-white text-sm font-semibold px-4 py-2">Log In</button>
+<button class="bg-primary hover:bg-primary/90 text-white text-sm font-bold px-5 py-2.5 rounded-xl transition-all shadow-lg shadow-primary/20">
+                        Get Started
+                    </button>
+</div>
+</div>
+</header>
+<main class="flex-1">
+<!-- Hero Section -->
+<section class="max-w-7xl mx-auto px-6 md:px-20 py-16 md:py-24 grid md:grid-cols-2 gap-12 items-center">
+<div class="flex flex-col gap-8">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 w-fit">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+<span class="text-primary text-xs font-bold uppercase tracking-wider">New Feature Release</span>
+</div>
+<h1 class="font-outfit text-5xl md:text-7xl font-extrabold text-slate-900 dark:text-white leading-[1.1] tracking-tight">
+                        Accelerate Your Pipeline with <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-violet-400">AI-Driven CRM</span>
+</h1>
+<p class="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-lg leading-relaxed">
+                        Supercharge your growth with the next-generation CRM designed for high-performance teams. Automate workflows and close deals faster with predictive intelligence.
+                    </p>
+<div class="flex flex-wrap gap-4 pt-4">
+<button class="bg-primary hover:bg-primary/90 text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all shadow-xl shadow-primary/30">
+                            Get Started Now
+                        </button>
+<button class="flex items-center gap-2 bg-slate-200 dark:bg-white/5 border border-slate-300 dark:border-white/10 px-8 py-4 rounded-2xl font-bold text-lg hover:bg-white/10 transition-all">
+<span class="material-symbols-outlined">play_circle</span> Watch Demo
+                        </button>
+</div>
+</div>
+<div class="relative">
+<div class="absolute -top-20 -right-20 w-64 h-64 bg-primary/20 rounded-full blur-[100px]"></div>
+<div class="glass-card rounded-3xl p-6 relative overflow-hidden shadow-2xl">
+<div class="flex items-center justify-between mb-8">
+<div class="flex gap-2">
+<div class="w-3 h-3 rounded-full bg-red-500/50"></div>
+<div class="w-3 h-3 rounded-full bg-yellow-500/50"></div>
+<div class="w-3 h-3 rounded-full bg-green-500/50"></div>
+</div>
+<div class="text-[10px] text-slate-500 font-mono">CRM_DASHBOARD_V2</div>
+</div>
+<div class="space-y-6">
+<div class="h-8 bg-primary/20 rounded-lg w-1/3"></div>
+<div class="grid grid-cols-4 gap-4">
+<div class="h-24 bg-white/5 border border-white/5 rounded-2xl flex flex-col items-center justify-center gap-2">
+<div class="w-8 h-8 rounded-full bg-primary/30"></div>
+<div class="w-10 h-2 bg-white/10 rounded"></div>
+</div>
+<div class="h-24 bg-white/5 border border-white/5 rounded-2xl flex flex-col items-center justify-center gap-2">
+<div class="w-8 h-8 rounded-full bg-blue-400/30"></div>
+<div class="w-10 h-2 bg-white/10 rounded"></div>
+</div>
+<div class="h-24 bg-white/5 border border-white/5 rounded-2xl flex flex-col items-center justify-center gap-2">
+<div class="w-8 h-8 rounded-full bg-pink-400/30"></div>
+<div class="w-10 h-2 bg-white/10 rounded"></div>
+</div>
+<div class="h-24 bg-white/5 border border-white/5 rounded-2xl flex flex-col items-center justify-center gap-2">
+<div class="w-8 h-8 rounded-full bg-green-400/30"></div>
+<div class="w-10 h-2 bg-white/10 rounded"></div>
+</div>
+</div>
+<!-- Funnel Visualization -->
+<div class="space-y-3 pt-4">
+<div class="h-10 bg-gradient-to-r from-primary/60 to-primary/20 rounded-full w-full flex items-center px-4 justify-between">
+<span class="text-[10px] font-bold">Leads</span>
+<span class="text-[10px] font-bold">1,240</span>
+</div>
+<div class="h-10 bg-gradient-to-r from-primary/50 to-primary/10 rounded-full w-[80%] flex items-center px-4 justify-between">
+<span class="text-[10px] font-bold">Qualified</span>
+<span class="text-[10px] font-bold">842</span>
+</div>
+<div class="h-10 bg-gradient-to-r from-primary/40 to-primary/5 rounded-full w-[60%] flex items-center px-4 justify-between">
+<span class="text-[10px] font-bold">Proposal</span>
+<span class="text-[10px] font-bold">415</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 'What CRM Does' Section -->
+<section class="max-w-7xl mx-auto px-6 md:px-20 py-20">
+<div class="text-center max-w-3xl mx-auto mb-16">
+<h2 class="font-outfit text-3xl md:text-4xl font-bold mb-4">Powerful Features for Sales Excellence</h2>
+<p class="text-slate-600 dark:text-slate-400">Everything you need to turn relationships into revenue, all powered by our proprietary AI engine.</p>
+</div>
+<div class="grid md:grid-cols-3 gap-8">
+<!-- Card 1 -->
+<div class="group p-8 rounded-3xl glass-card hover:bg-primary/5 transition-all border-b-4 border-b-transparent hover:border-b-primary">
+<div class="w-14 h-14 bg-gradient-to-br from-primary/20 to-pink-500/20 rounded-2xl flex items-center justify-center mb-6 text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl">person</span>
+</div>
+<h3 class="font-outfit text-xl font-bold mb-3">Manage Leads</h3>
+<p class="text-slate-600 dark:text-slate-400 leading-relaxed">Centralize your contacts and automate lead capturing with AI that identifies intent and potential value.</p>
+</div>
+<!-- Card 2 -->
+<div class="group p-8 rounded-3xl glass-card hover:bg-primary/5 transition-all border-b-4 border-b-transparent hover:border-b-primary">
+<div class="w-14 h-14 bg-gradient-to-br from-primary/20 to-blue-500/20 rounded-2xl flex items-center justify-center mb-6 text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl">monitoring</span>
+</div>
+<h3 class="font-outfit text-xl font-bold mb-3">Track Pipeline</h3>
+<p class="text-slate-600 dark:text-slate-400 leading-relaxed">Visualize every stage of your sales cycle in real-time. Forecast with 98% accuracy using predictive models.</p>
+</div>
+<!-- Card 3 -->
+<div class="group p-8 rounded-3xl glass-card hover:bg-primary/5 transition-all border-b-4 border-b-transparent hover:border-b-primary">
+<div class="w-14 h-14 bg-gradient-to-br from-primary/20 to-violet-500/20 rounded-2xl flex items-center justify-center mb-6 text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl">groups</span>
+</div>
+<h3 class="font-outfit text-xl font-bold mb-3">Team Collaboration</h3>
+<p class="text-slate-600 dark:text-slate-400 leading-relaxed">Sync your team with shared notes, tasks, and deal updates. Eliminate silos and work as a single unit.</p>
+</div>
+</div>
+</section>
+<!-- 'How Teams Use CRM' Flow -->
+<section class="max-w-7xl mx-auto px-6 md:px-20 py-20 bg-primary/5 rounded-[3rem] my-10">
+<div class="text-center mb-16">
+<h2 class="font-outfit text-3xl font-bold mb-2">Optimized Workflow Flow</h2>
+<p class="text-slate-400">Streamlined from initial contact to lifetime partnership.</p>
+</div>
+<div class="relative flex flex-col md:flex-row items-center justify-between gap-8 max-w-5xl mx-auto">
+<!-- Step 1 -->
+<div class="flex flex-col items-center gap-4 relative z-10 w-full md:w-1/4">
+<div class="w-16 h-16 rounded-full bg-white dark:bg-slate-800 border-2 border-primary flex items-center justify-center text-primary font-bold text-xl shadow-lg shadow-primary/20">
+                            01
+                        </div>
+<div class="px-4 py-2 bg-white dark:bg-slate-800 rounded-full border border-primary/20 shadow-sm">
+<span class="text-sm font-bold uppercase tracking-widest text-primary">Capture</span>
+</div>
+</div>
+<!-- Line -->
+<div class="hidden md:block absolute top-8 left-1/8 right-1/8 h-0.5 bg-gradient-to-r from-primary/10 via-primary to-primary/10 w-[75%] translate-x-[15%]"></div>
+<!-- Step 2 -->
+<div class="flex flex-col items-center gap-4 relative z-10 w-full md:w-1/4">
+<div class="w-16 h-16 rounded-full bg-white dark:bg-slate-800 border-2 border-primary flex items-center justify-center text-primary font-bold text-xl shadow-lg shadow-primary/20">
+                            02
+                        </div>
+<div class="px-4 py-2 bg-white dark:bg-slate-800 rounded-full border border-primary/20 shadow-sm">
+<span class="text-sm font-bold uppercase tracking-widest text-primary">Nurture</span>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="flex flex-col items-center gap-4 relative z-10 w-full md:w-1/4">
+<div class="w-16 h-16 rounded-full bg-white dark:bg-slate-800 border-2 border-primary flex items-center justify-center text-primary font-bold text-xl shadow-lg shadow-primary/20">
+                            03
+                        </div>
+<div class="px-4 py-2 bg-white dark:bg-slate-800 rounded-full border border-primary/20 shadow-sm">
+<span class="text-sm font-bold uppercase tracking-widest text-primary">Close</span>
+</div>
+</div>
+<!-- Step 4 -->
+<div class="flex flex-col items-center gap-4 relative z-10 w-full md:w-1/4">
+<div class="w-16 h-16 rounded-full bg-white dark:bg-slate-800 border-2 border-primary flex items-center justify-center text-primary font-bold text-xl shadow-lg shadow-primary/20">
+                            04
+                        </div>
+<div class="px-4 py-2 bg-white dark:bg-slate-800 rounded-full border border-primary/20 shadow-sm">
+<span class="text-sm font-bold uppercase tracking-widest text-primary">Expand</span>
+</div>
+</div>
+</div>
+</section>
+<!-- 'Productivity Impact' Section -->
+<section class="max-w-7xl mx-auto px-6 md:px-20 py-20">
+<div class="grid md:grid-cols-3 gap-6">
+<div class="md:col-span-2 grid grid-cols-2 gap-6">
+<div class="p-8 rounded-3xl glass-card flex flex-col justify-center">
+<span class="text-primary text-5xl font-extrabold font-outfit mb-2">35%</span>
+<p class="text-slate-400 font-medium">Faster Deal Closing</p>
+</div>
+<div class="p-8 rounded-3xl glass-card flex flex-col justify-center">
+<span class="text-primary text-5xl font-extrabold font-outfit mb-2">4x</span>
+<p class="text-slate-400 font-medium">Higher Lead Quality</p>
+</div>
+<div class="p-8 rounded-3xl glass-card flex flex-col justify-center">
+<span class="text-primary text-5xl font-extrabold font-outfit mb-2">60h</span>
+<p class="text-slate-400 font-medium">Saved Weekly per Rep</p>
+</div>
+<div class="p-8 rounded-3xl glass-card flex flex-col justify-center">
+<span class="text-primary text-5xl font-extrabold font-outfit mb-2">22%</span>
+<p class="text-slate-400 font-medium">Churn Reduction</p>
+</div>
+</div>
+<div class="p-8 rounded-3xl glass-card flex flex-col h-full bg-gradient-to-br from-primary/10 to-transparent">
+<div class="flex items-center justify-between mb-8">
+<h4 class="font-outfit font-bold">Revenue Growth</h4>
+<span class="bg-green-500/20 text-green-400 text-xs px-2 py-1 rounded">+12.4%</span>
+</div>
+<div class="mt-auto h-40 flex items-end gap-2">
+<div class="bg-primary/30 w-full h-[30%] rounded-t-lg"></div>
+<div class="bg-primary/40 w-full h-[45%] rounded-t-lg"></div>
+<div class="bg-primary/50 w-full h-[40%] rounded-t-lg"></div>
+<div class="bg-primary/60 w-full h-[65%] rounded-t-lg"></div>
+<div class="bg-primary/70 w-full h-[80%] rounded-t-lg"></div>
+<div class="bg-primary w-full h-[95%] rounded-t-lg"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- 'Deep Feature Details' Section -->
+<section class="max-w-7xl mx-auto px-6 md:px-20 py-20 grid md:grid-cols-2 gap-16 items-center">
+<div class="flex flex-col gap-8">
+<div class="p-8 rounded-3xl glass-card border-l-4 border-l-primary">
+<h3 class="font-outfit text-2xl font-bold mb-4">Visual Pipeline Management</h3>
+<p class="text-slate-400 leading-relaxed mb-4">Drag-and-drop deals across custom stages. Get instant health indicators for every deal so you know exactly where to focus your effort.</p>
+<ul class="space-y-3">
+<li class="flex items-center gap-2 text-sm text-slate-300">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+                                Custom stages for unique workflows
+                            </li>
+<li class="flex items-center gap-2 text-sm text-slate-300">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+                                Automated activity logging
+                            </li>
+</ul>
+</div>
+<div class="p-8 rounded-3xl glass-card border-l-4 border-l-primary">
+<h3 class="font-outfit text-2xl font-bold mb-4">Predictive Lead Scoring</h3>
+<p class="text-slate-400 leading-relaxed mb-4">Stop guessing. Our AI analyzes 100+ signals to score leads from 1-100, prioritizing those most likely to convert today.</p>
+<ul class="space-y-3">
+<li class="flex items-center gap-2 text-sm text-slate-300">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+                                Real-time intent monitoring
+                            </li>
+<li class="flex items-center gap-2 text-sm text-slate-300">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+                                Behavioral pattern matching
+                            </li>
+</ul>
+</div>
+</div>
+<div class="relative group">
+<div class="absolute inset-0 bg-primary/20 rounded-[2.5rem] blur-3xl opacity-30 group-hover:opacity-50 transition-opacity"></div>
+<div class="relative bg-slate-900 border border-white/10 rounded-[2.5rem] overflow-hidden shadow-2xl">
+<div class="p-6 bg-slate-800/50 border-b border-white/5 flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center text-primary font-bold">JD</div>
+<div>
+<h5 class="text-white font-bold leading-none">Jane Doe</h5>
+<span class="text-xs text-slate-500">VP of Sales at GlobalTech</span>
+</div>
+</div>
+<div class="p-8 space-y-6">
+<div class="flex justify-between items-center">
+<span class="text-xs font-bold text-slate-500 uppercase">Opportunity Value</span>
+<span class="text-white font-bold text-lg">$142,000</span>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs">
+<span class="text-slate-400">Probability to close</span>
+<span class="text-primary font-bold">88%</span>
+</div>
+<div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[88%]"></div>
+</div>
+</div>
+<div class="pt-6 border-t border-white/5">
+<div class="flex gap-2 mb-4">
+<span class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] text-slate-400">Software</span>
+<span class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] text-slate-400">Enterprise</span>
+</div>
+<div class="space-y-4">
+<div class="flex gap-4">
+<div class="w-8 h-8 rounded-lg bg-green-500/20 flex items-center justify-center text-green-500">
+<span class="material-symbols-outlined text-sm">mail</span>
+</div>
+<div class="text-xs">
+<p class="text-white font-medium">Email Sent</p>
+<p class="text-slate-500">Follow-up proposal - 2h ago</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center text-blue-500">
+<span class="material-symbols-outlined text-sm">call</span>
+</div>
+<div class="text-xs">
+<p class="text-white font-medium">Discovery Call</p>
+<p class="text-slate-500">Completed yesterday</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Final CTA Section -->
+<section class="max-w-7xl mx-auto px-6 md:px-20 py-24">
+<div class="bg-gradient-to-br from-primary to-indigo-900 rounded-[3rem] p-12 md:p-24 text-center relative overflow-hidden">
+<div class="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-96 h-96 bg-white/10 rounded-full blur-[80px]"></div>
+<div class="relative z-10 flex flex-col items-center gap-8">
+<h2 class="font-outfit text-4xl md:text-6xl font-extrabold text-white max-w-2xl leading-tight">Ready to Transform Your Sales Machine?</h2>
+<p class="text-primary-foreground/80 text-lg md:text-xl max-w-xl text-primary-100">Join 500+ high-growth teams already using OpenBusiness.ai to dominate their markets.</p>
+<div class="flex flex-col sm:flex-row gap-4 items-center">
+<button class="bg-white text-primary hover:bg-slate-100 px-10 py-5 rounded-2xl font-bold text-xl shadow-2xl transition-all w-full sm:w-auto">
+                                Get Started Free
+                            </button>
+<span class="text-white/60 text-sm italic">No credit card required. 14-day trial.</span>
+</div>
+<div class="flex items-center gap-8 pt-8 opacity-60">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-white">verified</span>
+<span class="text-white text-xs font-bold uppercase tracking-widest">SOC2 Type II</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-white">encrypted</span>
+<span class="text-white text-xs font-bold uppercase tracking-widest">End-to-End Encrypted</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="border-t border-slate-200 dark:border-white/5 py-12 px-6 md:px-20 bg-background-light dark:bg-slate-900/50">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="flex items-center gap-2">
+<div class="bg-primary/20 p-1.5 rounded-lg">
+<span class="material-symbols-outlined text-primary text-xl">diamond</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-lg font-outfit font-bold tracking-tight">OpenBusiness.ai</h2>
+</div>
+<div class="flex gap-8 text-sm text-slate-500">
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="hover:text-primary transition-colors" href="#">Cookie Policy</a>
+</div>
+<p class="text-xs text-slate-500">© 2024 OpenBusiness.ai. All rights reserved.</p>
+</div>
+</footer>
+</div>
+</body></html>

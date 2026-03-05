@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, PlayCircle } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function Hero() {
@@ -45,7 +45,7 @@ export function Hero() {
         </motion.p>
 
         <motion.div 
-          className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4"
+          className="mt-10 flex items-center justify-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
@@ -56,13 +56,6 @@ export function Hero() {
             onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
           >
             Start Transforming <ArrowRight className="ml-2 h-5 w-5" />
-          </Button>
-          <Button 
-            size="lg" 
-            variant="outline" 
-            className="h-14 px-8 text-base rounded-full border-border bg-background/50 backdrop-blur hover:bg-accent transition-all hover:scale-105"
-          >
-             Talk to our AI Agent
           </Button>
         </motion.div>
         

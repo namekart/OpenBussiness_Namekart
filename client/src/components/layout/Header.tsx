@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Moon, Sun, Hexagon } from "lucide-react";
 import { useTheme } from "@/hooks/use-theme";
@@ -10,16 +10,25 @@ export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState("ERP");
   const { theme, setTheme } = useTheme();
+  const [location, setLocation] = useLocation();
 
-  // Export activeTab to be used by other components if needed, 
-  // but for now we'll handle the scroll/change logic here
-  const handleNavClick = (tab: string) => {
-    setActiveTab(tab);
-    const element = document.getElementById('product-showcase');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+  const navItems = [
+    { label: "ERP", href: "/erp" },
+    { label: "CRM", href: "/crm" },
+    { label: "AI Voice", href: "/ai-voice" },
+  ];
+
+  const handleGetStartedClick = () => {
+    const scrollToContact = () => {
+      document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+    };
+
+    if (location !== "/") {
+      setLocation("/");
+      window.setTimeout(scrollToContact, 80);
+    } else {
+      scrollToContact();
     }
   };
 
@@ -68,9 +77,17 @@ export function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8 font-medium text-base lg:text-lg text-muted-foreground">
-            <button onClick={() => handleNavClick("ERP")} className={`hover:text-foreground transition-colors ${activeTab === "ERP" ? "text-foreground" : ""}`}>ERP</button>
-            <button onClick={() => handleNavClick("CRM")} className={`hover:text-foreground transition-colors ${activeTab === "CRM" ? "text-foreground" : ""}`}>CRM</button>
-            <button onClick={() => handleNavClick("Voice")} className={`hover:text-foreground transition-colors ${activeTab === "Voice" ? "text-foreground" : ""}`}>AI Voice</button>
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`hover:text-foreground transition-colors ${
+                  location === item.href ? "text-foreground" : ""
+                }`}
+              >
+                {item.label}
+              </Link>
+            ))}
           </nav>
 
           {/* Actions */}
@@ -95,7 +112,7 @@ export function Header() {
             </Button>
             <Button 
               className="font-semibold rounded-xl bg-gradient-to-r from-primary to-primary/80 shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/40 transition-all duration-300 hover:-translate-y-0.5"
-              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={handleGetStartedClick}
             >
               Get Started
             </Button>
@@ -132,9 +149,16 @@ export function Header() {
             className="fixed top-[72px] left-0 right-0 bg-background/95 backdrop-blur-xl border-b border-border z-40 md:hidden overflow-hidden"
           >
             <div className="flex flex-col p-6 gap-6">
-              <a href="#features" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium">Features</a>
-              <a href="#product" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium">Product</a>
-              <a href="#testimonials" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium">Testimonials</a>
+              {navItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-lg font-medium"
+                >
+                  {item.label}
+                </Link>
+              ))}
               <div className="h-px w-full bg-border" />
               <Button 
                 variant="outline" 
@@ -147,7 +171,7 @@ export function Header() {
                 className="w-full justify-center bg-primary"
                 onClick={() => {
                   setMobileMenuOpen(false);
-                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                  handleGetStartedClick();
                 }}
               >
                 Get Started

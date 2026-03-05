@@ -6,11 +6,17 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/hooks/use-theme";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
+import CRMPage from "@/pages/CRMPage";
+import ERPPage from "@/pages/ERPPage";
+import AIVoicePage from "@/pages/AIVoicePage";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/crm" component={CRMPage} />
+      <Route path="/erp" component={ERPPage} />
+      <Route path="/ai-voice" component={AIVoicePage} />
       <Route component={NotFound} />
     </Switch>
   );

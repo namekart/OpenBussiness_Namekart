@@ -17,6 +17,7 @@ export function Footer() {
             <p className="text-muted-foreground text-sm mb-6 leading-relaxed">
               The AI-native platform designed for global SMEs. Automate operations, manage sales, and deploy multilingual customer engagement.
             </p>
+            {/* Keeping social buttons for future release.
             <div className="flex gap-4">
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
                 <Twitter className="h-5 w-5" />
@@ -28,6 +29,7 @@ export function Footer() {
                 <Linkedin className="h-5 w-5" />
               </a>
             </div>
+            */}
           </div>
 
           <div>
