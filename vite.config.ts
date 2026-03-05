@@ -22,5 +22,8 @@ export default defineConfig({
       strict: true,
       deny: ["**/.*"],
     },
+    watch: {
+      ignored: ["**/skills/**"],
+    },
   },
 });

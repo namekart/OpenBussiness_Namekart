@@ -67,8 +67,7 @@ export function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8 font-medium text-sm text-muted-foreground">
-            <button onClick={() => handleNavClick("Platform")} className={`hover:text-foreground transition-colors ${activeTab === "Platform" ? "text-foreground" : ""}`}>Platform</button>
+          <nav className="hidden md:flex items-center gap-8 font-medium text-base lg:text-lg text-muted-foreground">
             <button onClick={() => handleNavClick("ERP")} className={`hover:text-foreground transition-colors ${activeTab === "ERP" ? "text-foreground" : ""}`}>ERP</button>
             <button onClick={() => handleNavClick("CRM")} className={`hover:text-foreground transition-colors ${activeTab === "CRM" ? "text-foreground" : ""}`}>CRM</button>
             <button onClick={() => handleNavClick("Voice")} className={`hover:text-foreground transition-colors ${activeTab === "Voice" ? "text-foreground" : ""}`}>AI Voice</button>
