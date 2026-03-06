@@ -37,3 +37,4 @@ EXPOSE 5000
 
 # Command to run the application (node directly - cross-env is dev-only)
 CMD ["node", "dist/index.cjs"]
+
