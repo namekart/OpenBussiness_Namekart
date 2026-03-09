@@ -1,4 +1,14 @@
 services:
+  chroma:
+    image: chromadb/chroma:latest
+    ports:
+      - "8000:8000"
+    volumes:
+      - chroma_data:/chroma/chroma
+    environment:
+      - ALLOW_RESET=true
+    restart: unless-stopped
+
   web:
     build: .
     ports:
@@ -6,9 +16,16 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=5000
-      # MongoDB Atlas connection string
       - MONGODB_URI=${MONGODB_URI}
       - EMAIL_USER=${EMAIL_USER}
       - EMAIL_APP_PASSWORD=${EMAIL_APP_PASSWORD}
       - OWNER_EMAIL=${OWNER_EMAIL}
+      - CHROMA_URL=http://chroma:8000
+      - ENABLE_AI_CHATBOT=${ENABLE_AI_CHATBOT}
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+    depends_on:
+      - chroma
     restart: unless-stopped
+
+volumes:
+  chroma_data:

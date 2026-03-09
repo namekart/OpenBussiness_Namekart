@@ -37,6 +37,34 @@ export const api = {
         400: errorSchemas.validation,
       }
     }
+  },
+  features: {
+    get: {
+      method: 'GET' as const,
+      path: '/api/features' as const,
+      responses: {
+        200: z.object({ aiChatbot: z.boolean() }),
+      }
+    }
+  },
+  chat: {
+    send: {
+      method: 'POST' as const,
+      path: '/api/chat' as const,
+      input: z.object({
+        sessionId: z.string().optional(),
+        message: z.string().min(1, 'Message is required').max(2000, 'Message too long'),
+      }),
+      responses: {
+        200: z.object({
+          reply: z.string(),
+          sessionId: z.string(),
+          action: z.object({ type: z.literal('navigate'), page: z.string() }).optional(),
+        }),
+        503: z.object({ message: z.string() }),
+        400: errorSchemas.validation,
+      }
+    }
   }
 };
 
@@ -54,3 +82,4 @@ export function buildUrl(path: string, params?: Record<string, string | number>)
 
 export type LoginRequestType = z.infer<typeof api.auth.login.input>;
 export type InquiryRequestType = z.infer<typeof api.inquiries.create.input>;
+export type ChatSendRequestType = z.infer<typeof api.chat.send.input>;
