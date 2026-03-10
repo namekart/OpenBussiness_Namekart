@@ -1,6 +1,9 @@
 import { apiRequest } from "@/lib/queryClient";
-import { api } from "@shared/routes";
-import type { ChatSendRequestType } from "@shared/routes";
+
+export type ChatSendRequestType = {
+  sessionId?: string;
+  message: string;
+};
 
 export type ChatSendResponse = {
   reply: string;
@@ -11,6 +14,6 @@ export type ChatSendResponse = {
 export async function sendChatMessage(
   body: ChatSendRequestType
 ): Promise<ChatSendResponse> {
-  const res = await apiRequest("POST", api.chat.send.path, body);
+  const res = await apiRequest("POST", "/api/chat", body);
   return res.json();
 }

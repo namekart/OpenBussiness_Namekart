@@ -11,6 +11,7 @@
     "ingest": "tsx server/ingest/crawlAndIngest.ts"
   },
   "dependencies": {
+    "@chroma-core/default-embed": "^0.1.9",
     "@hookform/resolvers": "^3.10.0",
     "@jridgewell/trace-mapping": "^0.3.25",
     "@langchain/core": "^1.1.31",

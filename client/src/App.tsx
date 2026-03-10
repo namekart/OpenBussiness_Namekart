@@ -27,7 +27,7 @@ function Router() {
   );
 }
 
-function App() {
+function AppContent() {
   const { data: features } = useQuery({
     queryKey: ["features"],
     queryFn: fetchFeatures,
@@ -35,13 +35,19 @@ function App() {
   });
 
   return (
+    <TooltipProvider>
+      <Router />
+      <Toaster />
+      {features?.aiChatbot && <ChatWidget />}
+    </TooltipProvider>
+  );
+}
+
+function App() {
+  return (
     <ThemeProvider defaultTheme="dark" storageKey="openbusiness-theme-v2">
       <QueryClientProvider client={queryClient}>
-        <TooltipProvider>
-          <Router />
-          <Toaster />
-          {features?.aiChatbot && <ChatWidget />}
-        </TooltipProvider>
+        <AppContent />
       </QueryClientProvider>
     </ThemeProvider>
   );

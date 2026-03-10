@@ -2,15 +2,17 @@ import { StateGraph, END } from "@langchain/langgraph";
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 import { HumanMessage, AIMessage, SystemMessage } from "@langchain/core/messages";
 import { AgentState, type Intent } from "./state";
-import { SYSTEM_PROMPT, INTENT_CLASSIFICATION_PROMPT } from "./prompts";
+import { SYSTEM_PROMPT } from "./prompts";
 import { searchKnowledge } from "./tools/knowledgeSearch";
 import { createNavigationAction } from "./tools/navigation";
 import { captureLead } from "./tools/leadCapture";
 
 const llm = new ChatGoogleGenerativeAI({
   apiKey: process.env.GOOGLE_API_KEY,
-  model: "gemini-1.5-flash",
-  temperature: 0.2,
+  model: process.env.GOOGLE_MODEL || "gemini-3-flash-preview",
+  temperature: 0.3,
+  maxOutputTokens: 8192,
+  maxRetries: 0, // Fail fast on quota limits instead of hanging for 60s
 });
 
 function getLastUserMessage(state: typeof AgentState.State): string {
@@ -24,25 +26,72 @@ function getLastUserMessage(state: typeof AgentState.State): string {
   return "";
 }
 
-async function intentNode(state: typeof AgentState.State): Promise<Partial<typeof AgentState.State>> {
+const NAV_KEYWORDS: [RegExp, string][] = [
+  [/\bpricing\b/i, "/pricing"],
+  [/\bfeatures?\b/i, "/features"],
+  [/\bcrm\b/i, "/crm"],
+  [/\berp\b/i, "/erp"],
+  [/\bai[- ]?voice\b/i, "/ai-voice"],
+  [/\bsettings?\b/i, "/settings"],
+  [/\bhome\b/i, "/"],
+];
+
+const LEAD_SIGNALS = /\b(contact|callback|call me|reach out|get in touch|talk to (sales|support|team)|demo|inquiry|interested)\b/i;
+const KNOWLEDGE_SIGNALS = /\b(what|how|why|explain|tell me|does|can|pricing|cost|plan|feature|product|service|work|offer|support|help)\b/i;
+
+/**
+ * Instant intent classification via keywords — no LLM call needed.
+ * This saves 10-15s per request vs the previous LLM-based approach.
+ */
+async function classifyIntentNode(state: typeof AgentState.State): Promise<Partial<typeof AgentState.State>> {
+  const t0 = Date.now();
   const text = getLastUserMessage(state);
-  const response = await llm.invoke([
-    new HumanMessage(INTENT_CLASSIFICATION_PROMPT + "\n\nUser: " + text),
-  ]);
-  const content = typeof response.content === "string" ? response.content : String(response.content ?? "");
-  const intent = (content.toLowerCase().trim().replace(/\.$/, "") as Intent) || "general";
-  const valid: Intent[] = ["knowledge", "navigation", "lead_capture", "general"];
-  const resolved: Intent = valid.includes(intent) ? intent : "general";
-  return { intent: resolved };
+  const lower = text.toLowerCase();
+
+  const emailMatch = text.match(/[\w.+%-]+@[\w.-]+\.\w+/);
+  if (emailMatch || LEAD_SIGNALS.test(lower)) {
+    console.log(`[agent] classifyIntent: lead_capture (${Date.now() - t0}ms)`);
+    return { intent: "lead_capture" };
+  }
+
+  for (const [regex, page] of NAV_KEYWORDS) {
+    if (regex.test(lower) && /\b(go|show|take|open|navigate|visit|see|page)\b/i.test(lower)) {
+      console.log(`[agent] classifyIntent: navigation → ${page} (${Date.now() - t0}ms)`);
+      return { intent: "navigation" };
+    }
+  }
+
+  if (KNOWLEDGE_SIGNALS.test(lower)) {
+    console.log(`[agent] classifyIntent: knowledge (${Date.now() - t0}ms)`);
+    return { intent: "knowledge" };
+  }
+
+  console.log(`[agent] classifyIntent: general (${Date.now() - t0}ms)`);
+  return { intent: "general" };
 }
 
+const RAG_TIMEOUT_MS = 8_000;
+
 async function retrieveNode(state: typeof AgentState.State): Promise<Partial<typeof AgentState.State>> {
+  const t0 = Date.now();
   const text = getLastUserMessage(state);
-  const context = await searchKnowledge(text);
-  return { context: context || undefined };
+  try {
+    const context = await Promise.race([
+      searchKnowledge(text),
+      new Promise<string>((_, reject) =>
+        setTimeout(() => reject(new Error("RAG timeout")), RAG_TIMEOUT_MS)
+      ),
+    ]);
+    console.log(`[agent] retrieve: ${context.length} chars (${Date.now() - t0}ms)`);
+    return { context: context || undefined };
+  } catch (err) {
+    console.warn(`[agent] retrieve failed/timeout (${Date.now() - t0}ms):`, err);
+    return { context: undefined };
+  }
 }
 
 async function toolsNode(state: typeof AgentState.State): Promise<Partial<typeof AgentState.State>> {
+  const t0 = Date.now();
   const intent = state.intent;
   const lastContent = getLastUserMessage(state);
   const results: Record<string, unknown> = {};
@@ -50,8 +99,13 @@ async function toolsNode(state: typeof AgentState.State): Promise<Partial<typeof
   let lead: { name: string; email: string; query: string } | undefined;
 
   if (intent === "navigation") {
-    const page = extractPageFromMessage(lastContent);
-    nextPage = page ?? "/";
+    for (const [regex, page] of NAV_KEYWORDS) {
+      if (regex.test(lastContent)) {
+        nextPage = page;
+        break;
+      }
+    }
+    nextPage = nextPage ?? "/";
     results.navigation = createNavigationAction(nextPage);
   }
 
@@ -66,19 +120,8 @@ async function toolsNode(state: typeof AgentState.State): Promise<Partial<typeof
     }
   }
 
+  console.log(`[agent] tools: ${intent} (${Date.now() - t0}ms)`);
   return { toolResults: results, nextPage, lead };
-}
-
-function extractPageFromMessage(text: string): string | null {
-  const lower = text.toLowerCase();
-  if (lower.includes("pricing")) return "/pricing";
-  if (lower.includes("feature")) return "/features";
-  if (lower.includes("crm")) return "/crm";
-  if (lower.includes("erp")) return "/erp";
-  if (lower.includes("ai voice") || lower.includes("ai-voice")) return "/ai-voice";
-  if (lower.includes("setting")) return "/settings";
-  const match = text.match(/\/(?:[\w-]+)/);
-  return match ? match[0] : null;
 }
 
 function extractLeadFromMessage(text: string): { name: string; email: string; query: string } | null {
@@ -92,6 +135,7 @@ function extractLeadFromMessage(text: string): { name: string; email: string; qu
 }
 
 async function generateNode(state: typeof AgentState.State): Promise<Partial<typeof AgentState.State>> {
+  const t0 = Date.now();
   let system = SYSTEM_PROMPT;
   if (state.context) {
     system += "\n\nRelevant context from our website:\n" + state.context;
@@ -108,6 +152,7 @@ async function generateNode(state: typeof AgentState.State): Promise<Partial<typ
 
   const response = await llm.invoke(fullMessages);
   const content = typeof response.content === "string" ? response.content : String(response.content ?? "");
+  console.log(`[agent] generate: ${content.length} chars (${Date.now() - t0}ms)`);
   return { messages: [new AIMessage(content)] };
 }
 
@@ -124,13 +169,13 @@ function routeByIntent(state: typeof AgentState.State): "retrieve" | "tools" | "
 }
 
 const builder = new StateGraph(AgentState)
-  .addNode("intent", intentNode)
+  .addNode("classifyIntent", classifyIntentNode)
   .addNode("retrieve", retrieveNode)
   .addNode("tools", toolsNode)
   .addNode("generate", generateNode);
 
-builder.addEdge("__start__", "intent");
-builder.addConditionalEdges("intent", routeByIntent, {
+builder.addEdge("__start__", "classifyIntent");
+builder.addConditionalEdges("classifyIntent", routeByIntent, {
   retrieve: "retrieve",
   tools: "tools",
   generate: "generate",

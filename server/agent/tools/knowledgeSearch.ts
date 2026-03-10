@@ -8,8 +8,20 @@ const RAG_TOP_K = Math.max(1, Math.min(20, parseInt(process.env.RAG_TOP_K || "5"
 let _client: ChromaClient | null = null;
 let _embeddings: GoogleGenerativeAIEmbeddings | null = null;
 
+function parseChromaUrl(urlString: string): { host: string; port: number; ssl: boolean } {
+  const parsed = new URL(urlString);
+  return {
+    host: parsed.hostname,
+    port: Number(parsed.port || (parsed.protocol === "https:" ? 443 : 80)),
+    ssl: parsed.protocol === "https:",
+  };
+}
+
 function getClient(): ChromaClient {
-  if (!_client) _client = new ChromaClient({ path: CHROMA_URL });
+  if (!_client) {
+    const { host, port, ssl } = parseChromaUrl(CHROMA_URL);
+    _client = new ChromaClient({ host, port, ssl });
+  }
   return _client;
 }
 
@@ -29,19 +41,40 @@ function getEmbeddings(): GoogleGenerativeAIEmbeddings {
  */
 export async function searchKnowledge(query: string): Promise<string> {
   try {
+    const normalizedQuery = query.trim();
+    if (!normalizedQuery) {
+      return "";
+    }
+
     const client = getClient();
     const embeddings = getEmbeddings();
-    const collection = await client.getOrCreateCollection({
-      name: COLLECTION_NAME,
-      metadata: { "hnsw:space": "cosine" },
-    });
+    const collection = await client.getCollection({ name: COLLECTION_NAME });
 
-    const [queryEmbedding] = await embeddings.embedDocuments([query]);
-    const results = await collection.query({
-      queryEmbeddings: [queryEmbedding],
-      nResults: RAG_TOP_K,
-      include: ["documents", "metadatas"],
-    });
+    let results;
+    try {
+      const queryEmbedding =
+        typeof embeddings.embedQuery === "function"
+          ? await embeddings.embedQuery(normalizedQuery)
+          : (await embeddings.embedDocuments([normalizedQuery]))[0];
+
+      if (!Array.isArray(queryEmbedding) || queryEmbedding.length === 0) {
+        throw new Error("Empty query embedding from embedding provider");
+      }
+
+      results = await collection.query({
+        queryEmbeddings: [queryEmbedding],
+        nResults: RAG_TOP_K,
+        include: ["documents", "metadatas"],
+      });
+    } catch (embedErr) {
+      // Fallback to Chroma-side embedding if external embedding returns empty.
+      console.warn("[RAG] Falling back to queryTexts:", embedErr);
+      results = await collection.query({
+        queryTexts: [normalizedQuery],
+        nResults: RAG_TOP_K,
+        include: ["documents", "metadatas"],
+      });
+    }
 
     const documents = results.documents?.[0] ?? [];
     if (documents.length === 0) {

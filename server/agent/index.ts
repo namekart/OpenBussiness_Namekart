@@ -1,7 +1,7 @@
 import { HumanMessage } from "@langchain/core/messages";
 import { agentGraph } from "./graph";
 
-const AGENT_TIMEOUT_MS = 30_000;
+const AGENT_TIMEOUT_MS = 60_000;
 
 export interface AgentResponse {
   reply: string;
@@ -21,6 +21,7 @@ export async function runAgent(
   const timeout = setTimeout(() => controller.abort(), AGENT_TIMEOUT_MS);
 
   try {
+    const t0 = Date.now();
     const result = await agentGraph.invoke(
       {
         messages: [new HumanMessage(userMessage)],
@@ -29,6 +30,7 @@ export async function runAgent(
     );
 
     clearTimeout(timeout);
+    console.log(`[agent] total: ${Date.now() - t0}ms`);
 
     const messages = result?.messages ?? [];
     const lastAi = [...messages].reverse().find(

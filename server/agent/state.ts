@@ -12,21 +12,11 @@ export const AgentState = Annotation.Root({
     reducer: messagesStateReducer,
     default: () => [],
   }),
-  intent: Annotation<Intent | undefined>({
-    default: () => undefined,
-  }),
-  context: Annotation<string | undefined>({
-    default: () => undefined,
-  }),
-  toolResults: Annotation<Record<string, unknown> | undefined>({
-    default: () => undefined,
-  }),
-  nextPage: Annotation<string | undefined>({
-    default: () => undefined,
-  }),
-  lead: Annotation<{ name: string; email: string; query: string } | undefined>({
-    default: () => undefined,
-  }),
+  intent: Annotation<Intent | undefined>(),
+  context: Annotation<string | undefined>(),
+  toolResults: Annotation<Record<string, unknown> | undefined>(),
+  nextPage: Annotation<string | undefined>(),
+  lead: Annotation<{ name: string; email: string; query: string } | undefined>(),
 });
 
 export type AgentStateType = typeof AgentState.State;

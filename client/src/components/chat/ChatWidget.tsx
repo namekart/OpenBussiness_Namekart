@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useLocation } from "wouter";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -59,6 +59,12 @@ export function ChatWidget() {
     },
     [setLocation]
   );
+
+  useEffect(() => {
+    const openHandler = () => setOpen(true);
+    window.addEventListener("open-ai-chat", openHandler as EventListener);
+    return () => window.removeEventListener("open-ai-chat", openHandler as EventListener);
+  }, []);
 
   return (
     <>
